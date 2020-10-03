@@ -27,7 +27,7 @@ class Client extends SoapClient
      */
     public function GetCursOnDateXML(DateTime $date)
     {
-        /** @todo $date */
-        return parent::GetCursOnDateXML(['On_date' => $date]);
+        $dateString = $date->format('Y-m-d');
+        return parent::GetCursOnDateXML(['On_date' => $dateString]);
     }
 }
