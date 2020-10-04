@@ -3,6 +3,7 @@
 namespace CbrSimpleSoap;
 
 use DateTime;
+use SimpleXMLElement;
 use SoapClient;
 
 /**
@@ -27,7 +28,13 @@ class Client extends SoapClient
      */
     public function GetCursOnDateXML(DateTime $date)
     {
+        $xml = null;
         $dateString = $date->format('Y-m-d');
-        return parent::GetCursOnDateXML(['On_date' => $dateString]);
+        $result = parent::GetCursOnDateXML(['On_date' => $dateString]);
+        /** if any rate exists */
+        if ($result->GetCursOnDateXMLResult->any) {
+            $xml = new SimpleXMLElement($result->GetCursOnDateXMLResult->any);
+        }
+        return $xml;
     }
 }
